@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Starx24 Free Fire tournament app. Download the app and join competitive mobile battle royale tournaments.">
+<title>Starx24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#000;
+  --green:#0b3d2a;
+  --green-deep:#04180f;
+  --red:#ff3b30;
+  --orange:#ff6a1a;
+  --fg:#fff;
+  --muted:#b6bfbb;
+  --line:rgba(255,255,255,.13);
+  --card:rgba(255,255,255,.05);
+  --display:"Oxanium","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#000;z-index:60}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
+.logo{display:block}
+
+.header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px))) calc(-1*max(16px,env(safe-area-inset-right,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));background:#000;border-bottom:1px solid var(--line)}
+.bar{height:64px;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:.02em}
+.burger{width:46px;height:46px;background:none;border:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;cursor:pointer;color:#fff}
+.burger span{width:24px;height:2.5px;background:currentColor;border-radius:2px;transition:transform .25s,opacity .25s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+.menu{display:none;max-width:1100px;margin:0 auto;padding:4px 0 14px;flex-direction:column}
+.menu.open{display:flex}
+.menu a{padding:14px 2px;border-bottom:1px solid var(--line);color:var(--muted);font-weight:500;transition:color .2s,padding-left .2s}
+.menu a:last-child{border-bottom:0}
+.menu a:hover{color:var(--orange);padding-left:10px}
+
+.band{margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px))) calc(-1*max(16px,env(safe-area-inset-right,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+.hero{background:
+  linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/44px 44px,
+  linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/44px 44px,
+  linear-gradient(180deg,#000 0%,var(--green-deep) 55%,var(--green) 100%);
+  padding-block:64px 72px;text-align:center}
+.hero-in{max-width:760px;margin:0 auto}
+.badge{display:inline-block;padding:7px 16px;border-radius:999px;background:rgba(255,59,48,.15);border:1px solid var(--red);color:#ff6e65;font-size:.85rem;font-weight:600;letter-spacing:.03em;margin-bottom:26px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,9.5vw,4.4rem);line-height:1.04;letter-spacing:.01em;text-transform:uppercase;text-wrap:balance;margin-bottom:22px}
+h1 em{font-style:normal;color:var(--orange)}
+.lead{color:var(--muted);font-size:clamp(1.02rem,3.8vw,1.2rem);max-width:600px;margin:0 auto 34px;text-wrap:pretty}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 40px;border:0;border-radius:12px;font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.02em;color:#fff;background:linear-gradient(90deg,var(--red),var(--orange));box-shadow:0 8px 28px rgba(255,80,30,.35);cursor:pointer;transition:transform .2s,box-shadow .2s,filter .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 34px rgba(255,80,30,.5);filter:brightness(1.08)}
+.btn:active{transform:translateY(0)}
+.note{margin-top:16px;color:#ffb199;font-size:.95rem}
+.cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:52px;text-align:left}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;transition:transform .25s,border-color .25s,background .25s}
+.card:hover{transform:translateY(-4px);border-color:var(--orange);background:rgba(255,255,255,.08)}
+.card .k{display:block;color:var(--muted);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em;margin-bottom:2px}
+.card .v{font-family:var(--display);font-weight:700;font-size:1.5rem}
+
+.doc{max-width:760px;margin:0 auto;padding-block:48px 0}
+.doc h2{font-family:var(--display);font-weight:700;font-size:1.55rem;margin-bottom:12px;padding-left:14px;border-left:4px solid var(--orange)}
+.doc p{color:var(--muted);text-wrap:pretty}
+.mailrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:14px}
+.mail{min-width:0;padding:12px 18px;border:1px solid var(--line);border-radius:10px;color:#fff;overflow-wrap:anywhere;user-select:all}
+.copy{min-height:46px;padding:0 18px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:#fff;font:inherit;font-weight:600;cursor:pointer;transition:border-color .2s}
+.copy:hover{border-color:var(--orange)}
+.copy[hidden]{display:none}
+
+footer{margin-top:64px;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px))) calc(-1*max(16px,env(safe-area-inset-right,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));background:#000;border-top:1px solid var(--line);padding-block:44px 32px;text-align:center}
+.fb{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.4rem;margin-bottom:12px}
+.fd{color:var(--muted);max-width:480px;margin:0 auto 24px;font-size:.98rem}
+.fl{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 24px;margin-bottom:26px}
+.fl a{color:var(--muted);font-size:.95rem;transition:color .2s}
+.fl a:hover{color:var(--orange)}
+.cp{color:#8a938f;font-size:.88rem;border-top:1px solid var(--line);padding-top:20px}
+
+@media(min-width:720px){.cards{grid-template-columns:repeat(3,1fr)}.hero{padding-block:96px 104px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="slogo" viewBox="120 130 1010 960">
+    <path fill="#1d4fc4" d="M626 152 L763 477 L685 477 L625 320 L536 550 L337 550 L511 693 C462 800 412 905 350 1000 L270 1068 L426 712 L141 480 L488 478 Z"/>
+    <path fill="#1d4fc4" d="M595 499 L742 499 L812 583 L916 471 L1113 471 L880 685 L1104 966 L936 966 L757 737 L840 657 L883 613 L571 809 L730 669 Z"/>
+    <path fill="#00a0ff" d="M270 1068 L350 998 L518 870 L840 657 L757 737 L540 925 Z"/>
+  </symbol>
+</svg>
+
+<header class="header" id="top">
+  <div class="bar">
+    <a class="brand" href="#home" aria-label="Starx24 home">
+      <svg class="logo" width="42" height="40" role="img" aria-label="Starx24 logo"><use href="#slogo"/></svg>
+      <span>Starx24</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="menu" id="menu" aria-label="Main">
+    <a href="#home">Home</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#terms">Terms &amp; Conditions</a>
+    <a href="#refund">Refund Policy</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+</header>
+
+<main>
+  <section class="band hero" id="home">
+    <div class="hero-in">
+      <span class="badge">India's Best Esports Platform</span>
+      <h1>Built for the <em>gaming</em> ecosystem</h1>
+      <p class="lead">Join Starx24 for the ultimate mobile battle royale experience, designed for skilled players seeking competitive gaming and thrilling tournaments.</p>
+      <a class="btn" id="dl" href="#home" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+        Download App
+      </a>
+      <p class="note" id="dlNote" role="status" hidden></p>
+      <div class="cards">
+        <div class="card"><span class="k">Experience</span><span class="v">Fast</span></div>
+        <div class="card"><span class="k">Support</span><span class="v">Responsive</span></div>
+        <div class="card"><span class="k">Focus</span><span class="v">Players First</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="doc" id="privacy">
+    <h2>Privacy Policy</h2>
+    <p>Starx24 respects your privacy. We collect only the information needed to run your account and tournaments, such as your in-game name, contact details you provide, and basic usage data. We do not sell your personal information. You may contact us to request access to or deletion of your data.</p>
+  </section>
+  <section class="doc" id="terms">
+    <h2>Terms &amp; Conditions</h2>
+    <p>By using Starx24 you agree to play fairly, not use cheats, hacks or multiple accounts, and to follow tournament rules. Starx24 may disqualify players or suspend accounts that break the rules. Starx24 is an independent platform and is not affiliated with or endorsed by Garena or Free Fire.</p>
+  </section>
+  <section class="doc" id="refund">
+    <h2>Refund Policy</h2>
+    <p>Entry fees or payments, where applicable, are handled as described in each tournament's rules. If you believe you were charged in error, contact us using the details below and we will review your request.</p>
+  </section>
+  <section class="doc" id="contact">
+    <h2>Contact Us</h2>
+    <p>Questions or need help? Reach our support team.</p>
+    <div class="mailrow">
+      <span class="mail" id="mail">Support email coming soon</span>
+      <button class="copy" id="copy" type="button" hidden>Copy</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fb">
+    <svg class="logo" width="46" height="44" role="img" aria-label="Starx24 logo"><use href="#slogo"/></svg>
+    <span>Starx24</span>
+  </div>
+  <p class="fd">Starx24 is a Free Fire tournament platform for players who love competitive mobile battle royale.</p>
+  <nav class="fl" aria-label="Footer">
+    <a href="#home">Home</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#terms">Terms &amp; Conditions</a>
+    <a href="#refund">Refund Policy</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+  <p class="cp">© 2026 Starx24. All rights reserved.</p>
+</footer>
+
+<script>
+/* ===== EDIT THESE TWO LINES ===== */
+var APK_URL = "https://files.catbox.moe/x7bf3d.apk";
+var SUPPORT_EMAIL = "";  // paste the real support email here
+/* ================================ */
+
+var dl = document.getElementById("dl");
+var note = document.getElementById("dlNote");
+if (APK_URL) {
+  dl.href = APK_URL;
+} else {
+  dl.addEventListener("click", function (e) {
+    e.preventDefault();
+    note.hidden = false;
+    note.textContent = "Download link not set yet. Add the APK link at the top of the script (APK_URL).";
+  });
+}
+
+var mail = document.getElementById("mail");
+var copyBtn = document.getElementById("copy");
+if (SUPPORT_EMAIL) {
+  mail.textContent = SUPPORT_EMAIL;
+  copyBtn.hidden = false;
+  copyBtn.addEventListener("click", function () {
+    var done = function () { copyBtn.textContent = "Copied"; setTimeout(function () { copyBtn.textContent = "Copy"; }, 1500); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(mail);
+      var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    };
+    try { navigator.clipboard.writeText(SUPPORT_EMAIL).then(done, fallback); } catch (e) { fallback(); }
+  });
+}
+
+var burger = document.getElementById("burger");
+var menu = document.getElementById("menu");
+function setMenu(open) {
+  menu.classList.toggle("open", open);
+  burger.setAttribute("aria-expanded", String(open));
+  burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+}
+burger.addEventListener("click", function () { setMenu(!menu.classList.contains("open")); });
+menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
+</script>
+</body>
+</html>
